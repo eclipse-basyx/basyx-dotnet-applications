@@ -6,12 +6,23 @@
     <Authors>Constantin Ziesche</Authors>
     <Copyright>Copyright 2021 - Robert Bosch GmbH</Copyright>
     <PackageProjectUrl>https://wiki.eclipse.org/BaSyx</PackageProjectUrl>
-    <RepositoryUrl>https://git.eclipse.org/r/plugins/gitiles/basyx/basyx/+/master/sdks/csnet/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/eclipse-basyx/basyx-dotnet-applications</RepositoryUrl>
     <Description>The official BaSyx Asset Administration Shell Repository Http Server Reference Implementation</Description>
     <Company>Robert Bosch GmbH</Company>
     <PackageTags>BaSys BaSyx Asset Administration Shell Repository Server App</PackageTags>
     <PackageLicenseExpression>EPL-2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ServerSettings.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ServerSettings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 
   <ItemGroup>   
     <PackageReference Include="BaSyx.AAS.Server.Http" Version="1.0.0" />   
@@ -20,16 +31,11 @@
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <Content Include="..\..\resources\Nlog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="ServerSettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

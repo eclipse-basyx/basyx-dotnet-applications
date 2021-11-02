@@ -6,12 +6,26 @@
     <Authors>Constantin Ziesche</Authors>
     <Copyright>Copyright 2021 - Robert Bosch GmbH</Copyright>
     <PackageProjectUrl>https://wiki.eclipse.org/BaSyx</PackageProjectUrl>
-    <RepositoryUrl>https://git.eclipse.org/r/plugins/gitiles/basyx/basyx/+/master/sdks/csnet/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/eclipse-basyx/basyx-dotnet-applications</RepositoryUrl>
     <Description>The official BaSyx Registry Http Server Component Reference Implementation</Description>
     <Company>Robert Bosch GmbH</Company>
     <PackageTags>BaSys BaSyx Registry Server Component</PackageTags>
     <PackageLicenseExpression>EPL-2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="FileBasedRegistrySettings.xml" />
+    <None Remove="ServerSettings.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="FileBasedRegistrySettings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ServerSettings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BaSyx.Common.UI" Version="1.0.0" />
@@ -23,18 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\resources\Nlog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="FileBasedRegistrySettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="ServerSettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

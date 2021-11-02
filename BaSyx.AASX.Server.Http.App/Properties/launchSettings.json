@@ -2,11 +2,12 @@
   "profiles": {
     "BaSyx.AASX.Server.Http.App": {
       "commandName": "Project",
+      "commandLineArgs": "--input MyAssetPackage.aasx",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:6499;http://localhost:6999"
+      "applicationUrl": "http://localhost:5998"
     }
   }
 }

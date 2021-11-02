@@ -338,7 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-/TestSuite
-/BaSyx.Registry.Server.Http.Component/linux-arm-publish
-/BaSyx.Registry.Server.Http.Component/PublishToRaspberryPi.bat
-/RemoveBinAndObjFolders.bat
+ServiceDependencies

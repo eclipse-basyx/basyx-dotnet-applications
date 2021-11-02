@@ -131,13 +131,16 @@ namespace BaSyx.AASX.Server.Http.App
 
                 repositoryServer.ApplicationStopping = () =>
                 {
-                    var providers = repositoryService.GetAssetAdministrationShellServiceProviders().Entity;
-                    foreach (var shellProvider in providers)
+                    if (serverSettings.Miscellaneous.ContainsKey("AutoRegister") && serverSettings.Miscellaneous["AutoRegister"] == "true")
                     {
-                        var result = registryHttpClient
-                        .DeleteAssetAdministrationShellRegistration(shellProvider.ServiceDescriptor.Identification.Id);
+                        var providers = repositoryService.GetAssetAdministrationShellServiceProviders().Entity;
+                        foreach (var shellProvider in providers)
+                        {
+                            var result = registryHttpClient
+                            .DeleteAssetAdministrationShellRegistration(shellProvider.ServiceDescriptor.Identification.Id);
 
-                        result.LogResult(logger, LogLevel.Info);
+                            result.LogResult(logger, LogLevel.Info);
+                        }
                     }
                 };
 
@@ -192,10 +195,13 @@ namespace BaSyx.AASX.Server.Http.App
                 aasServiceProvider.UseDefaultEndpointRegistration(aasServiceEndpoints);
                 repositoryService.RegisterAssetAdministrationShellServiceProvider(shell.Identification.Id, aasServiceProvider);
 
-                var result = registryHttpClient.CreateOrUpdateAssetAdministrationShellRegistration(
+                if (serverSettings.Miscellaneous.ContainsKey("AutoRegister") && serverSettings.Miscellaneous["AutoRegister"] == "true")
+                {
+                    var result = registryHttpClient.CreateOrUpdateAssetAdministrationShellRegistration(
                     shell.Identification.Id, aasServiceProvider.ServiceDescriptor);
 
-                result.LogResult(logger, LogLevel.Info);
+                    result.LogResult(logger, LogLevel.Info);
+                }
             }
 
             string aasIdName = assetAdministrationShells.First().Identification.Id;

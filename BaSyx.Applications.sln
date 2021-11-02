@@ -13,6 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSyx.WebUI", "BaSyx.WebUI\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{55794310-6200-427E-808B-4214EF61A009}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
 		LICENSE-3RD-PARTY.txt = LICENSE-3RD-PARTY.txt
 	EndProjectSection
 EndProject
