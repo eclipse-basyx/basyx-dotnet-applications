@@ -95,13 +95,18 @@ namespace BaSyx.AASX.Server.Http.App
                                throw new FileNotFoundException(o.InputPath);
                        }
                        else
-                           throw new ArgumentNullException(o.InputPath);
+                       {
+                           if (File.Exists(args[0]))
+                               inputFiles = new string[] { args[0] };
+                           else if (Directory.Exists(args[0]))
+                               inputFiles = Directory.GetFiles(args[0]);
+                       }
 
                    });
 
             if (args.Contains("--help") || args.Contains("--version"))
                 return;
-
+           
             if (inputFiles == null || inputFiles.Length == 0)
             {
                 logger.Error("No AASX-File(s) found --> Application is shutting down...");
