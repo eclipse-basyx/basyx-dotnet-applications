@@ -17,7 +17,6 @@ using BaSyx.Models.Connectivity;
 using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 using BaSyx.Models.Export;
 using BaSyx.Registry.Client.Http;
-using BaSyx.Utils.Logging;
 using BaSyx.Utils.Settings.Types;
 using CommandLine;
 using NLog;
@@ -146,7 +145,7 @@ namespace BaSyx.AASX.Server.Http.App
                             var result = registryHttpClient
                             .DeleteAssetAdministrationShellRegistration(shellProvider.ServiceDescriptor.Identification.Id);
 
-                            result.LogResult(logger, LogLevel.Info);
+                            logger.Info($"Success: {result.Success} | Messages: {result.Messages.ToString()}");
                         }
                     }
                 };
@@ -207,7 +206,7 @@ namespace BaSyx.AASX.Server.Http.App
                     var result = registryHttpClient.CreateOrUpdateAssetAdministrationShellRegistration(
                     shell.Identification.Id, aasServiceProvider.ServiceDescriptor);
 
-                    result.LogResult(logger, LogLevel.Info);
+                    logger.Info($"Success: {result.Success} | Messages: {result.Messages.ToString()}");
                 }
             }
 
