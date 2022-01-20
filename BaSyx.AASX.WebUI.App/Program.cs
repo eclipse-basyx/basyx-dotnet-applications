@@ -30,6 +30,7 @@ using System.IO.Packaging;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using System.Web;
+using NLog.Web;
 
 namespace BaSyx.WebUI
 {
@@ -45,6 +46,7 @@ namespace BaSyx.WebUI
         {
             serverSettings = ServerSettings.LoadSettings();
             shellServer = new AssetAdministrationShellHttpServer(serverSettings);
+            shellServer.WebHostBuilder.UseNLog();
 
             string websiteHostName = Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%");
             if (!(string.IsNullOrEmpty(websiteHostName) || websiteHostName == "%WEBSITE_HOSTNAME%"))
