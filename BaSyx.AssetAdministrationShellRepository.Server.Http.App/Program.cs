@@ -18,6 +18,7 @@ using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
 using BaSyx.AAS.Server.Http;
 using BaSyx.API.Components;
+using NLog.Web;
 
 namespace BaSyx.AssetAdministrationShellRepository.Server.Http.App
 {
@@ -64,6 +65,9 @@ namespace BaSyx.AssetAdministrationShellRepository.Server.Http.App
 
             //Instantiate blank AssetAdministrationShellRepository-Http-Server with previously loaded server settings
             AssetAdministrationShellRepositoryHttpServer server = new AssetAdministrationShellRepositoryHttpServer(serverSettings);
+
+            //Configure the entire application to use your own logger library (here: Nlog)
+            server.WebHostBuilder.UseNLog();
 
             //Instantiate implementation backend for the Asset Administration Shell Repository
             AssetAdministrationShellRepositoryServiceProvider repositoryService = new AssetAdministrationShellRepositoryServiceProvider();

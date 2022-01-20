@@ -21,6 +21,7 @@ using BaSyx.Utils.Logging;
 using BaSyx.Utils.Settings.Types;
 using CommandLine;
 using NLog;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -116,6 +117,7 @@ namespace BaSyx.AASX.Server.Http.App
             {
                 registryHttpClient = new RegistryHttpClient();
                 repositoryServer = new AssetAdministrationShellRepositoryHttpServer(serverSettings);
+                repositoryServer.WebHostBuilder.UseNLog();
                 repositoryService = new AssetAdministrationShellRepositoryServiceProvider();
                 endpoints = serverSettings.ServerConfig.Hosting.Urls.ConvertAll(c =>
                 {
