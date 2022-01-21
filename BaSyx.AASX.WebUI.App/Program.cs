@@ -22,14 +22,13 @@ using BaSyx.Utils.Settings.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
-using NLog;
+using Microsoft.AspNetCore.Builder;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using System.Web;
+using NLog;
 using NLog.Web;
 
 namespace BaSyx.WebUI
