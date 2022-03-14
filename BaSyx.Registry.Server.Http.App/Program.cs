@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
 using NLog.Web;
+using Microsoft.AspNetCore.Hosting;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BaSyx.Registry.Server.Http.App
 {
@@ -65,6 +67,21 @@ namespace BaSyx.Registry.Server.Http.App
 
             //Instantiate blank Registry-Http-Server with previously loaded server settings
             RegistryHttpServer server = new RegistryHttpServer(serverSettings);
+
+            //Check if ServerCertificate is present
+            if(!string.IsNullOrEmpty(serverSettings.ServerConfig.Security.ServerCertificatePath))
+            {
+                server.WebHostBuilder.ConfigureKestrel(serverOptions =>
+                {
+                    serverOptions.ConfigureHttpsDefaults(listenOptions =>
+                    {
+                        X509Certificate2 certificate = new X509Certificate2(
+                            serverSettings.ServerConfig.Security.ServerCertificatePath,
+                            serverSettings.ServerConfig.Security.ServerCertificatePassword);
+                        listenOptions.ServerCertificate = certificate;
+                    });
+                });
+            }
 
             //Configure the entire application to use your own logger library (here: Nlog)
             server.WebHostBuilder.UseNLog();
