@@ -8,7 +8,7 @@
 *
 * SPDX-License-Identifier: EPL-2.0
 *******************************************************************************/
-using BaSyx.Utils.Settings.Types;
+using BaSyx.Utils.Settings;
 using CommandLine;
 using NLog;
 using System;
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
 using BaSyx.AAS.Server.Http;
-using BaSyx.API.Components;
+using BaSyx.API.ServiceProvider;
 using NLog.Web;
 
 namespace BaSyx.AssetAdministrationShellRepository.Server.Http.App

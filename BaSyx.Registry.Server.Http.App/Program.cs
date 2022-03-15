@@ -10,7 +10,7 @@
 *******************************************************************************/
 using BaSyx.Registry.ReferenceImpl.FileBased;
 using BaSyx.Discovery.mDNS;
-using BaSyx.Utils.Settings.Types;
+using BaSyx.Utils.Settings;
 using CommandLine;
 using NLog;
 using System;

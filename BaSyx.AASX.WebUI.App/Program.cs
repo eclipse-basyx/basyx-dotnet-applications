@@ -9,16 +9,10 @@
 * SPDX-License-Identifier: EPL-2.0
 *******************************************************************************/
 using BaSyx.AAS.Server.Http;
-using BaSyx.API.AssetAdministrationShell.Extensions;
-using BaSyx.API.Components;
+using BaSyx.API.ServiceProvider;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
-using BaSyx.Models.Core.AssetAdministrationShell.Generics;
-using BaSyx.Models.Core.AssetAdministrationShell.Identification;
-using BaSyx.Models.Core.AssetAdministrationShell.Implementations;
 using BaSyx.Models.Export;
-using BaSyx.Utils.Settings.Sections;
-using BaSyx.Utils.Settings.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
@@ -30,6 +24,8 @@ using System.IO.Packaging;
 using System.Linq;
 using NLog;
 using NLog.Web;
+using BaSyx.Utils.Settings;
+using BaSyx.Models.AdminShell;
 
 namespace BaSyx.WebUI
 {

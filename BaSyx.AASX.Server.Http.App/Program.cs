@@ -9,15 +9,14 @@
 * SPDX-License-Identifier: EPL-2.0
 *******************************************************************************/
 using BaSyx.AAS.Server.Http;
-using BaSyx.API.AssetAdministrationShell.Extensions;
-using BaSyx.API.Components;
+using BaSyx.API.ServiceProvider;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
 using BaSyx.Models.Connectivity;
-using BaSyx.Models.Core.AssetAdministrationShell.Generics;
+using BaSyx.Models.AdminShell;
 using BaSyx.Models.Export;
 using BaSyx.Registry.Client.Http;
-using BaSyx.Utils.Settings.Types;
+using BaSyx.Utils.Settings;
 using CommandLine;
 using NLog;
 using NLog.Web;
@@ -203,8 +202,7 @@ namespace BaSyx.AASX.Server.Http.App
 
                 if (serverSettings.Miscellaneous.ContainsKey("AutoRegister") && serverSettings.Miscellaneous["AutoRegister"] == "true")
                 {
-                    var result = registryHttpClient.CreateOrUpdateAssetAdministrationShellRegistration(
-                    shell.Identification.Id, aasServiceProvider.ServiceDescriptor);
+                    var result = registryHttpClient.CreateAssetAdministrationShellRegistration(aasServiceProvider.ServiceDescriptor);
 
                     logger.Info($"Success: {result.Success} | Messages: {result.Messages.ToString()}");
                 }
