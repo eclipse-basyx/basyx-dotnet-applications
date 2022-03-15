@@ -6,28 +6,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="C:\Users\ZIC5HO\.nuget\packages\basyx.registry.client.http\1.0.0\contentFiles\any\netstandard2.0\RegistryClientSettings.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="NLog.config" />
     <None Remove="RegistryClientSettings.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="RegistryClientSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BaSyx.Registry.Client.Http" Version="1.0.0" />
+  <ItemGroup Condition="Exists('..\..\basyx-dotnet-components\')">
+    <ProjectReference Include="..\..\basyx-dotnet-components\BaSyx.Discovery.mDNS\BaSyx.Discovery.mDNS.csproj" />
+    <ProjectReference Include="..\..\basyx-dotnet-components\BaSyx.Registry.Client.Http\BaSyx.Registry.Client.Http.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('..\..\basyx-dotnet-components\')">
     <PackageReference Include="BaSyx.Discovery.mDNS" Version="1.0.0" />
+    <PackageReference Include="BaSyx.Registry.Client.Http" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
   </ItemGroup>
 

@@ -1,6 +1,5 @@
 ﻿using BaSyx.Registry.Client.Http;
 using CommandLine;
-using NLog;
 using System;
 using System.Linq;
 
@@ -8,7 +7,6 @@ namespace BaSyx.Discovery.mDNS.Forwarder
 {
     class Program
     {
-        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private static RegistryClientSettings registryClientSettings;
 
         public class Options
