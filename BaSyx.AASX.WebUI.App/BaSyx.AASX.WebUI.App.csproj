@@ -23,11 +23,21 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BaSyx.AAS.Server.Http" Version="1.0.0" />
-    <PackageReference Include="BaSyx.API.Http.Controllers.AASX" Version="1.0.0" />
+  <ItemGroup Condition="Exists('..\..\basyx-dotnet-components\')">
+    <ProjectReference Include="..\..\basyx-dotnet-components\BaSyx.Common.UI\BaSyx.Common.UI.csproj" />
+    <ProjectReference Include="..\..\basyx-dotnet-components\BaSyx.Common.UI.Swagger\BaSyx.Common.UI.Swagger.csproj" />
+    <ProjectReference Include="..\..\basyx-dotnet-components\BaSyx.AAS.Server.Http\BaSyx.AAS.Server.Http.csproj" />
+    <ProjectReference Include="..\..\basyx-dotnet-components\BaSyx.API.Http.Controllers.AASX\BaSyx.API.Http.Controllers.AASX.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('..\..\basyx-dotnet-components\')">
     <PackageReference Include="BaSyx.Common.UI" Version="1.0.0" />
     <PackageReference Include="BaSyx.Common.UI.Swagger" Version="1.0.0" />
+    <PackageReference Include="BaSyx.AAS.Server.Http" Version="1.0.0" />
+    <PackageReference Include="BaSyx.API.Http.Controllers.AASX" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
   </ItemGroup>
 
