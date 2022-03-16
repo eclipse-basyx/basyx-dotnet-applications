@@ -26,6 +26,7 @@ using NLog;
 using NLog.Web;
 using BaSyx.Utils.Settings;
 using BaSyx.Models.AdminShell;
+using System.Net.Http;
 
 namespace BaSyx.WebUI
 {
@@ -89,12 +90,16 @@ namespace BaSyx.WebUI
                                 bool success = false;
                                 if (Uri.TryCreate(pathValue, UriKind.Absolute, out Uri pathUri))
                                 {
-                                    var net = new System.Net.WebClient();
-                                    var data = net.DownloadData(pathUri);
-                                    MemoryStream memoryStream = new MemoryStream(data);
-                                    Package package = Package.Open(memoryStream, FileMode.Open, FileAccess.Read);
-                                    AASX aasx = new AASX(package);
-                                    success = LoadAASX(aasx);
+                                    var client = new HttpClient();
+                                    var response = await client.GetAsync(pathUri);
+
+                                    using(MemoryStream stream = new MemoryStream())
+                                    {
+                                        await response.Content.CopyToAsync(stream);
+                                        Package package = Package.Open(stream, FileMode.Open, FileAccess.Read);
+                                        AASX aasx = new AASX(package);
+                                        success = LoadAASX(aasx);
+                                    }                            
                                 }
                                 else
                                     success = false;
