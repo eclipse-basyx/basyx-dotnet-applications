@@ -49,12 +49,12 @@ namespace BaSyx.Registry.Server.Http.App.Controllers
             try
             {
                 IAssetAdministrationShellDescriptor descriptor = result.Entity;
-                foreach (var endpoint in descriptor.Endpoints.OfType<HttpEndpoint>())
+                foreach (var endpoint in descriptor.Endpoints.Where(s => s.ProtocolInformation.EndpointProtocol == Uri.UriSchemeHttp || s.ProtocolInformation.EndpointProtocol == Uri.UriSchemeHttps))
                 {
-                    bool pingable = await NetworkUtils.PingHostAsync(endpoint.Url.Host);
+                    bool pingable = await NetworkUtils.PingHostAsync(endpoint.ProtocolInformation.Uri.Host);
                     if (pingable)
                     {
-                        return Redirect(endpoint.Address.Replace("/aas", "/" + toWhat));
+                        return Redirect(endpoint.ProtocolInformation.EndpointAddress.Replace("/aas", "/" + toWhat));
                     }
                 }
 
