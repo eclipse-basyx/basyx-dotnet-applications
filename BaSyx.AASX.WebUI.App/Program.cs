@@ -8,7 +8,7 @@
 *
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
-using BaSyx.AAS.Server.Http;
+using BaSyx.Servers.AdminShell.Http;
 using BaSyx.API.ServiceProvider;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
@@ -27,6 +27,8 @@ using NLog.Web;
 using BaSyx.Utils.Settings;
 using BaSyx.Models.AdminShell;
 using System.Net.Http;
+using BaSyx.API.Clients;
+using BaSyx.Clients.AdminShell.Http;
 
 namespace BaSyx.WebUI
 {
@@ -77,7 +79,7 @@ namespace BaSyx.WebUI
                 {
                     try
                     {
-                        string contentPath = Path.Combine(ServerSettings.ExecutingDirectory + "Content");
+                        string contentPath = Path.Combine(serverSettings.ExecutionPath + "Content");
                         if (Directory.Exists(contentPath))
                            Directory.Delete(contentPath, true);
 
@@ -111,6 +113,38 @@ namespace BaSyx.WebUI
                                 }
                                 context.Request.Path = new PathString("/ui");                         
                             }
+                            else if (context.Request.Query.TryGetValue("remoteClient", out StringValues remoteClientValue))
+                            {
+                                logger.Info("Middleware-Query-String: " + remoteClientValue);
+                                bool success = false;
+                                if (Uri.TryCreate(remoteClientValue, UriKind.Absolute, out Uri pathUri))
+                                {
+                                    AssetAdministrationShellHttpClient client = new AssetAdministrationShellHttpClient(pathUri);
+                                    shellProvider = client.CreateServiceProvider();
+
+                                    var submodelRefs_retrieved = await client.RetrieveAllSubmodelReferencesAsync();
+                                    if (submodelRefs_retrieved.Success)
+                                    {
+                                        foreach (var submodelRef in submodelRefs_retrieved.Entity)
+                                        {
+                                            var submodelClient = client.CreateSubmodelClient(submodelRef.First.Value);
+                                            var submodelProvider = submodelClient.CreateServiceProvider();
+                                            shellProvider.SubmodelProviderRegistry.RegisterSubmodelServiceProvider(submodelRef.First.Value, submodelProvider);
+                                        }
+                                    }
+
+                                    success = true;
+                                }
+                                else
+                                    success = false;
+
+                                if (!success)
+                                {
+                                    logger.Info("success is false on " + pathValue);
+                                    shellProvider = null;
+                                }
+                                context.Request.Path = new PathString("/ui");
+                            }
                         }
                     }
                     catch (Exception e)
@@ -129,7 +163,7 @@ namespace BaSyx.WebUI
             IAssetAdministrationShell shell = new AssetAdministrationShell("DefaultShell", new Identifier(Guid.NewGuid().ToString(), KeyType.Custom))
             {
                 Asset = new Asset("DefaultAsset", new Identifier(Guid.NewGuid().ToString(), KeyType.Custom)),
-                Submodels = { new Submodel("DefaultSubmodel", new Identifier(Guid.NewGuid().ToString(), KeyType.Custom)) }
+                Submodels = { new BaSyx.Models.AdminShell.Submodel("DefaultSubmodel", new Identifier(Guid.NewGuid().ToString(), KeyType.Custom)) }
             };
 
             var provider = shell.CreateServiceProvider(true);
