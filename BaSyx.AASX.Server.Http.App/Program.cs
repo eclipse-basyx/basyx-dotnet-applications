@@ -8,7 +8,7 @@
 *
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
-using BaSyx.AAS.Server.Http;
+using BaSyx.Servers.AdminShell.Http;
 using BaSyx.API.ServiceProvider;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
@@ -36,7 +36,7 @@ namespace BaSyx.AASX.Server.Http.App
         private static FileSystemWatcher watcher;
         private static AssetAdministrationShellRepositoryHttpServer repositoryServer;
         private static AssetAdministrationShellRepositoryServiceProvider repositoryService;
-        private static List<HttpEndpoint> endpoints;
+        private static List<HttpProtocol> endpoints;
         private static ServerSettings serverSettings;
         private static RegistryHttpClient registryHttpClient;
 
@@ -117,13 +117,7 @@ namespace BaSyx.AASX.Server.Http.App
                 repositoryServer = new AssetAdministrationShellRepositoryHttpServer(serverSettings);
                 repositoryServer.WebHostBuilder.UseNLog();
                 repositoryService = new AssetAdministrationShellRepositoryServiceProvider();
-                endpoints = serverSettings.ServerConfig.Hosting.Urls.ConvertAll(c =>
-                {
-                    string address = c.Replace("+", "127.0.0.1");
-                    logger.Info("Using " + address + " as base endpoint url");
-                    return new HttpEndpoint(address);
-                });
-                repositoryService.UseDefaultEndpointRegistration(endpoints);
+                repositoryService.UseAutoEndpointRegistration(serverSettings.ServerConfig);
                 repositoryServer.SetServiceProvider(repositoryService);
 
                 repositoryServer.AddBaSyxUI(PageNames.AssetAdministrationShellRepositoryServer);
@@ -192,9 +186,9 @@ namespace BaSyx.AASX.Server.Http.App
                 var aasServiceProvider = shell.CreateServiceProvider(true);
                 var aasServiceEndpoints = endpoints.ConvertAll(e =>
                 {
-                    return new HttpEndpoint(
-                        new Uri(e.Url, 
-                        new Uri("/shells/" + HttpUtility.UrlEncode(shell.Identification.Id), UriKind.Relative)));
+                    return new Endpoint(
+                        new Uri(e.Uri, 
+                        new Uri("/shells/" + HttpUtility.UrlEncode(shell.Identification.Id), UriKind.Relative)), InterfaceName.AssetAdministrationShellRepositoryInterface);
                 });
 
                 aasServiceProvider.UseDefaultEndpointRegistration(aasServiceEndpoints);
