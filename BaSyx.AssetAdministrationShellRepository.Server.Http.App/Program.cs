@@ -16,7 +16,7 @@ using System.Linq;
 using System.Collections.Generic;
 using BaSyx.Common.UI;
 using BaSyx.Common.UI.Swagger;
-using BaSyx.AAS.Server.Http;
+using BaSyx.Servers.AdminShell.Http;
 using BaSyx.API.ServiceProvider;
 using NLog.Web;
 
