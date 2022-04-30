@@ -3,6 +3,7 @@ using CommandLine;
 using NLog;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace BaSyx.Discovery.mDNS.Forwarder
 {
@@ -10,6 +11,7 @@ namespace BaSyx.Discovery.mDNS.Forwarder
     {
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private static RegistryClientSettings registryClientSettings;
+        private static ManualResetEvent _quitApplicationEvent = new ManualResetEvent(false);
 
         public class Options
         {
@@ -37,13 +39,17 @@ namespace BaSyx.Discovery.mDNS.Forwarder
             if (args.Contains("--help") || args.Contains("--version"))
                 return;
 
+            Console.CancelKeyPress += (sender, eArgs) => {
+                _quitApplicationEvent.Set();
+                eArgs.Cancel = true;
+            };
+
             RegistryHttpClient client = new RegistryHttpClient(registryClientSettings);
             client.StartDiscovery();
 
-            Console.WriteLine($"mDNS-Forwarder started with target registry {registryClientSettings.RegistryConfig.RegistryUrl}");
+            logger.Info($"mDNS-Forwarder started with target registry {registryClientSettings.RegistryConfig.RegistryUrl}");
 
-            Console.WriteLine("Press any key to quit");
-            Console.ReadKey();
+            _quitApplicationEvent.WaitOne();
 
             client.StopDiscovery();
         }
