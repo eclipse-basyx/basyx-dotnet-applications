@@ -32,11 +32,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="!Exists('..\..\basyx-dotnet-components\')">
-    <PackageReference Include="BaSyx.Common.UI" Version="1.0.0" />
-    <PackageReference Include="BaSyx.Common.UI.Swagger" Version="1.0.0" />
-    <PackageReference Include="BaSyx.Servers.Http" Version="1.0.0" />
-    <PackageReference Include="BaSyx.API.Http.Controllers.AASX" Version="1.0.0" />
-    <PackageReference Include="BaSyx.Clients.Http" Version="1.0.0" />
+    <PackageReference Include="BaSyx.Common.UI" Version="2.0.0-alpha.1" />
+    <PackageReference Include="BaSyx.Common.UI.Swagger" Version="2.0.0-alpha.1" />
+    <PackageReference Include="BaSyx.Servers.Http" Version="2.0.0-alpha.1" />
+    <PackageReference Include="BaSyx.API.Http.Controllers.AASX" Version="2.0.0-alpha.1" />
+    <PackageReference Include="BaSyx.Clients.Http" Version="2.0.0-alpha.1" />
   </ItemGroup>
 
   <ItemGroup>

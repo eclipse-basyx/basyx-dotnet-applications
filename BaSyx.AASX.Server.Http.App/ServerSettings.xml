@@ -19,7 +19,7 @@
   <!-- Add whatever you like for later user -->
   <Miscellaneous>
     <!-- CompanyLogo is reserved for the optional Web-UI. Starting the path with /files you can access the ContentPath defined above. -->
-    <CompanyLogo>/images/Bosch.png</CompanyLogo>
+    <CompanyLogo>/images/MyCompanyLogo.png</CompanyLogo>
     <!-- Automatically registers new found Asset Administration Shells at the configured Registry in RegistryClientSettings.xml. -->
     <AutoRegister>false</AutoRegister>
   </Miscellaneous>
