@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="C:\Users\ZIC5HO\.nuget\packages\basyx.registry.client.http\1.0.0\contentFiles\any\netstandard2.0\RegistryClientSettings.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="NLog.config" />
     <None Remove="RegistryClientSettings.xml" />
   </ItemGroup>
@@ -29,6 +25,7 @@
     <PackageReference Include="BaSyx.Registry.Client.Http" Version="1.0.0" />
     <PackageReference Include="BaSyx.Discovery.mDNS" Version="1.0.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="NLog" Version="4.7.14" />
   </ItemGroup>
 
 </Project>
