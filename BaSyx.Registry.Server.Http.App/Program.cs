@@ -95,13 +95,19 @@ namespace BaSyx.Registry.Server.Http.App
             //Start mDNS Discovery ability when the server successfully booted up
             server.ApplicationStarted = () =>
             {
-                fileBasedRegistry.StartDiscovery();
+                if (serverSettings.Miscellaneous.ContainsKey("DiscoveryActivated") && serverSettings.Miscellaneous["DiscoveryActivated"] == "true")
+                {
+                    fileBasedRegistry.StartDiscovery();
+                }                
             };
 
             //Start mDNS Discovery when the server is shutting down
             server.ApplicationStopping = () =>
             {
-                fileBasedRegistry.StopDiscovery();
+                if (serverSettings.Miscellaneous.ContainsKey("DiscoveryActivated") && serverSettings.Miscellaneous["DiscoveryActivated"] == "true")
+                {
+                    fileBasedRegistry.StopDiscovery();
+                }                
             };
 
             //Add BaSyx Web UI

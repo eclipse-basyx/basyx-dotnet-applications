@@ -33,5 +33,7 @@
     </Links>
   </UIConfig>
   <!-- Add whatever you like for later use in your code -->
-  <Miscellaneous/>
+  <Miscellaneous>
+    <DiscoveryActivated>false</DiscoveryActivated>
+  </Miscellaneous>
 </ServerSettings>
