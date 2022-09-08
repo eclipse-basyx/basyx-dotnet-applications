@@ -11,6 +11,7 @@
     <Company>Bosch Rexroth AG</Company>
     <PackageTags>BaSys BaSyx Registry Server Component</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
 
   <ItemGroup>
