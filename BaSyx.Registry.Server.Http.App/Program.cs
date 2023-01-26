@@ -98,7 +98,7 @@ namespace BaSyx.Registry.Server.Http.App
                 fileBasedRegistry.StartDiscovery();
             };
 
-            //Start mDNS Discovery when the server is shutting down
+            //Stop mDNS Discovery when the server is shutting down
             server.ApplicationStopping = () =>
             {
                 fileBasedRegistry.StopDiscovery();
